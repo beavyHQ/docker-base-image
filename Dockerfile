@@ -5,8 +5,12 @@ ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update && apt-get upgrade -y
 
-ADD .infrastructure/install_icu.sh /root
+ADD install_icu.sh /root
 RUN /root/install_icu.sh
+
+RUN wget https://raw.githubusercontent.com/beavyHQ/beavy/master/beavy/requirements/base.txt
+RUN pip install -r base.txt
+RUN pip install pyyaml
 
 ENV BEAVY_ENV PRODUCTION
 RUN mkdir -p /app
@@ -23,5 +27,4 @@ ONBUILD ADD .infrastructure/docker/run.sh /app/run.sh
 
 ONBUILD ADD *.py /app/
 
-ONBUILD RUN pip install pyyaml
 ONBUILD RUN python install.py
