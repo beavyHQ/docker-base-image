@@ -5,8 +5,8 @@ ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update && apt-get upgrade -y
 
-ADD install_icu.sh /root
-RUN /root/install_icu.sh
+RUN wget https://raw.githubusercontent.com/beavyHQ/beavy/master/.infrastructure/install_icu.sh
+RUN sh install_icu.sh
 
 RUN wget https://raw.githubusercontent.com/beavyHQ/beavy/master/beavy/requirements/base.txt
 RUN pip install -r base.txt
